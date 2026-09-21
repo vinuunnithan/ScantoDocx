@@ -38,7 +38,7 @@ with st.sidebar:
     # Track if the disclaimer has been signed
     is_signed = len(user_signature) > 0
 
-st.title("📝 PNG → Gemini Markdown → Word Converter")
+st.title("📝 Scanned PNG to Markdown to Word Converter")
 st.write("Upload your PNG images, convert them to crisp Markdown via Gemini AI, and download an editable Word Document.")
 
 # Check signature status before displaying the core application tools
