@@ -4,7 +4,7 @@ A secure, cloud-based web application built with **Streamlit** that utilizes **G
 
 🤝 **Developed with the help of Gemini AI:** This application, including its interactive interface layout, cloud file handling backend, and architectural evolution from a desktop script to a web app, was built in active collaboration with Gemini AI.
 
-Designed for non-technical users and coworkers to seamlessly transcribe documents with zero local setup.
+Designed for non-technical users to seamlessly transcribe documents with zero local setup.
 
 ---
 
@@ -27,45 +27,6 @@ To use this tool, you or your users will need a Google Gemini API key. Getting o
 2. Click the prominent blue **"Get API key"** button in the top-left corner.
 3. Click **"Create API key"**, select a Google Cloud project (or let it generate a new default one), and copy your generated key string.
 4. Paste that key directly into the application field to unlock the file processor.
-
----
-
-## ⚙️ How to Deploy (Streamlit Community Cloud)
-
-You can host this application for free on Streamlit Community Cloud by following these simple steps:
-
-### 1. Structure Your Repository
-Ensure your GitHub repository contains these three essential files:
-```text
-your-repo/
-├── app.py          (The main Python application script)
-├── requirements.txt (Python library dependencies)
-└── packages.txt     (Linux system-level dependencies for Pandoc)
-```
-
-### 2. File Configurations
-
-**`requirements.txt`**
-```text
-google-genai
-pypandoc
-streamlit
-```
-
-**`packages.txt`**
-```text
-pandoc
-```
-
-### 3. Deploy to the Web
-1. Go to [share.streamlit.io](https://streamlit.io) and log in using your GitHub account.
-2. Click the **"New app"** button.
-3. Select your repository, the appropriate branch, and set the main file path to `app.py`.
-4. *(Optional)* If you want to bake a shared company API key into the app so your coworkers don't have to input their own, click **Advanced Settings**, navigate to **Secrets**, and paste:
-   ```toml
-   GEMINI_API_KEY = "your_actual_api_key_here"
-   ```
-5. Click **Deploy**. Your app will be live and shareable in under two minutes!
 
 ---
 
