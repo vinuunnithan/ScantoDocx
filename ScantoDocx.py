@@ -1,8 +1,8 @@
-import streamlit as st
-import tempfile
 import os
-from google import genai
+import tempfile
 import pypandoc
+import streamlit as st
+from google import genai
 
 # Setup Page Configuration
 st.set_page_config(page_title="PNG to Word Converter", page_icon="📝", layout="centered")
@@ -38,20 +38,38 @@ with st.sidebar:
     # Track if the disclaimer has been signed
     is_signed = len(user_signature) > 0
 
-st.title("📝 Scanned PNG to Markdown to Word Converter")
+st.title("📝 PNG → Gemini Markdown → Word Converter")
 st.write("Upload your PNG images, convert them to crisp Markdown via Gemini AI, and download an editable Word Document.")
 
-# Check signature status before displaying the core application tools
+# Check signature status before displaying instructions or core application tools
 if not is_signed:
     st.warning("🔒 Please read and sign the **Legal & Technical Disclaimer** in the sidebar to unlock the application.")
 else:
     st.success(f"✍️ Acknowledged by: **{user_signature}**")
 
-    # --- API Key Section ---
+    # --- New User Instructions & API Key Guide ---
+    st.markdown("### 🔑 Getting Started: How to Get Your Gemini API Key")
+    st.markdown(
+        """
+        To use this tool, you need a Google Gemini API key. Getting one takes less than a minute and is completely **free** for experimental tiers:
+        
+        1. **Go to Google AI Studio:** Click on **[Google AI Studio](https://google.com)** and log in using your standard Google or Google Workspace account.
+        2. **Create Key:** Click the prominent blue **"Get API key"** button in the upper-left corner of the dashboard.
+        3. **Copy Key:** Choose **"Create API key"**, select a project (or let it generate a new default one), and copy your generated key string.
+        4. **Paste Below:** Paste that key string into the password field below to unlock the file processor.
+        """
+    )
+    st.write("---")
+
+    # --- API Key Input Field ---
     env_key = os.environ.get("GEMINI_API_KEY", "")
 
     if not env_key:
-        api_key_input = st.text_input("Enter Gemini API Key:", type="password", help="Get a key from https://google.com")
+        api_key_input = st.text_input(
+            "Enter your Gemini API Key:", 
+            type="password", 
+            help="Paste the key you generated from https://google.com"
+        )
         final_key = api_key_input.strip()
     else:
         final_key = env_key
@@ -77,7 +95,7 @@ else:
     # --- Process Pipeline ---
     if st.button("🚀 Process and Convert", type="primary"):
         if not final_key:
-            st.error("Please provide a valid Gemini API Key to proceed.")
+            st.error("Please provide a valid Gemini API Key to proceed. Follow the instructions above to generate one.")
         elif not uploaded_files:
             st.warning("Please upload at least one PNG file.")
         elif not output_name.strip():
@@ -88,7 +106,7 @@ else:
                     # 1. Initialize Gemini Client
                     client = genai.Client(api_key=final_key)
                     
-                    contents = ["Please convert the content of these images into a single, cohesive, well-formatted Markdown document."]
+                    contents = ["Extract all text, tables, and structural elements from this image and output them cleanly formatted in standard Markdown. Do not include conversational filler like 'Here is your markdown'. Enclose all equations in single dollar signs like $e=mc^2$ You are analyzing a series of sequential PNG images. CRITICAL INSTRUCTION FOR IMAGES:. whenever you reference, describe, or analyze a specific image in your report, you MUST embed the figure inline using standard Markdown image syntax." ]
                     
                     # Load image bytes directly from memory buffer
                     for uploaded_file in uploaded_files:
@@ -99,7 +117,7 @@ else:
 
                     # 2. Generate Content via Gemini
                     response = client.models.generate_content(
-                        model='gemini-2.5-flash',
+                        model='gemini-3.6-flash',
                         contents=contents
                     )
                     markdown_text = response.text
