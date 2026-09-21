@@ -7,14 +7,34 @@ import pypandoc
 # Setup Page Configuration
 st.set_page_config(page_title="PNG to Word Converter", page_icon="📝", layout="centered")
 
+# --- Sidebar Disclaimer Section ---
+with st.sidebar:
+    st.header("⚠️ Legal & Technical Disclaimer")
+    st.markdown(
+        """
+        **Experimental Purpose:**  
+        This application is developed strictly for experimental, proof-of-concept, and internal evaluation purposes. 
+        
+        **Accuracy & Liability:**  
+        * Text generation and OCR outputs are processed using artificial intelligence (Gemini API). 
+        * Outputs may contain **errors, hallucinations, omissions, or formatting discrepancies**. 
+        * The user acknowledges and accepts all operational risks associated with using this software.
+        * The developer offers **no warranties of any kind** (express or implied) and shall **not be held liable** for any direct, indirect, incidental, or consequential damages, data loss, or business interruptions arising out of the use or inability to use this tool.
+        
+        **Data Privacy Notice:**  
+        Uploaded files are processed entirely in temporary memory buffers and are automatically destroyed when your session ends or closes. No data is permanently retained on this server.
+        
+        ---
+        *By uploading files and proceeding with the conversion, you agree to these terms.*
+        """
+    )
+
 st.title("📝 PNG → Gemini Markdown → Word Converter")
 st.write("Upload your PNG images, convert them to crisp Markdown via Gemini AI, and download an editable Word Document.")
 
 # --- API Key Section ---
-# First, look for a secure Cloud Environment Variable (recommended for deployment)
 env_key = os.environ.get("GEMINI_API_KEY", "")
 
-# Fallback: if not set in cloud secrets, allow user to input it manually
 if not env_key:
     api_key_input = st.text_input("Enter Gemini API Key:", type="password", help="Get a key from https://google.com")
     final_key = api_key_input.strip()
@@ -64,7 +84,7 @@ if st.button("🚀 Process and Convert", type="primary"):
 
                 # 2. Generate Content via Gemini
                 response = client.models.generate_content(
-                    model='gemini-3.6-flash',
+                    model='gemini-2.5-flash',
                     contents=contents
                 )
                 markdown_text = response.text
