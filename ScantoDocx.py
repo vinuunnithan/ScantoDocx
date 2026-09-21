@@ -19,9 +19,9 @@ with st.sidebar:
         This application is developed strictly for experimental, proof-of-concept, and internal evaluation purposes. 
         
         **Accuracy & Liability:**  
-        * Text generation, OCR, and document extraction are processed using artificial intelligence (Gemini API). 
-        * Outputs may contain **errors, hallucinations, omissions, or formatting discrepancies**. 
-        * The user acknowledges and accepts all operational risks associated with using this software.
+        * Text generation, OCR, and document extraction are processed using artificial intelligence (Gemini API).  
+        * Outputs may contain **errors, hallucinations, omissions, or formatting discrepancies**.  
+        * The user acknowledges and accepts all operational risks associated with using this software.  
         * The developer offers **no warranties of any kind** (express or implied) and shall **not be held liable** for any direct, indirect, incidental, or consequential damages, data loss, or business interruptions arising out of the use or inability to use this tool.
         
         **Data Privacy Notice:**  
@@ -115,7 +115,7 @@ else:
                     for uploaded_file in uploaded_files:
                         file_bytes = uploaded_file.read()
                         
-                        # Determine exact MIME type based on file suffix
+                        # VERIFICATION LOGIC: Determine exact MIME type based on file suffix
                         if uploaded_file.name.lower().endswith('.pdf'):
                             mime_type = 'application/pdf'
                         else:
