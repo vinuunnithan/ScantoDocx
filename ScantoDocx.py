@@ -42,8 +42,7 @@ with st.sidebar:
     is_signed = len(user_signature) > 0
 
 st.title("📝 PNG/PDF→Markdown→Word Converter")
-st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an editable Word Document.")
-st.write("App developed by Dr. Vinu Unnikrishnan in collaboration with **Gemini AI**.")
+st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an editable Word Document. App developed by Dr. Vinu Unnikrishnan in collaboration with **Gemini AI**.")
 
 # Check signature status before displaying instructions or core application tools
 if not is_signed:
