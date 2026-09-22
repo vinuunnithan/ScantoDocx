@@ -7,11 +7,14 @@ from google import genai
 # Setup Page Configuration
 st.set_page_config(page_title="Document to Word Converter", page_icon="📝", layout="centered")
 
-# --- Sidebar Disclaimer & User Registration Section ---
+# --- Sidebar Disclaimer & Signature Section ---
 with st.sidebar:
-    st.header("⚠️ Technical Disclaimer")
+    st.header("⚠️ Legal & Technical Disclaimer")
     st.markdown(
         """
+        **Application Origins:**  
+        This application was **developed in collaboration with Gemini AI** as an automated utility solution.
+        
         **Experimental Purpose:**  
         This application is developed strictly for experimental, proof-of-concept, and internal evaluation purposes. 
         
@@ -27,37 +30,25 @@ with st.sidebar:
     )
     
     st.write("---")
-    st.subheader("✍️ User Registration & Acknowledgement")
-    
-    # Interactive User Information Fields
-    user_name = st.text_input(
-        "Full Name:", 
+    st.subheader("✍️ Digital Acknowledgement")
+    # Interactive signature text entry
+    user_signature = st.text_input(
+        "Type your full name to accept these terms:", 
         placeholder="First and Last Name",
         help="Entering your name acts as a digital signature acknowledging the risks listed above."
     ).strip()
 
-    # Track if all required detailed information has been provided
-    is_signed = len(user_name) > 0 
+    # Track if the disclaimer has been signed
+    is_signed = len(user_signature) > 0
 
-# --- Main Body Elements ---
-st.title("📝 PNG/PDF → Markdown → Word Converter")
-
-# Developer Acknowledgement using clean markdown styling
-st.markdown(
-    """
-    > 🤖 **Developer Acknowledgement**  
-    > App developed in collaboration with **Gemini AI** by Vinu Unnikrishnan.
-    """
-)
-st.write("") # Tiny spacer
-
+st.title("📝 PNG/PDF → Gemini Markdown → Word Converter")
 st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an editable Word Document.")
 
 # Check signature status before displaying instructions or core application tools
 if not is_signed:
-    st.warning("🔒 Please fill out your **Detailed Information** and accept the terms in the sidebar to unlock the application tools.")
+    st.warning("🔒 Please read and sign the **Legal & Technical Disclaimer** in the sidebar to unlock the application.")
 else:
-    st.success(f"🔓 Access Granted to: **{user_name}** ({user_org})")
+    st.success(f"✍️ Acknowledged by: **{user_signature}**")
 
     # --- User Instructions & API Key Guide ---
     st.markdown("### 🔑 Getting Started: How to Get Your Gemini API Key")
@@ -118,21 +109,13 @@ else:
                     # 1. Initialize Gemini Client
                     client = genai.Client(api_key=final_key)
                     
-                    # Updated Prompt Engineering Strategy for structured extraction and formatting constraints
-                    contents = [
-                        "Extract all text, tables, and structural elements from this image and output them "
-                        "cleanly formatted in standard Markdown. Do not include conversational filler like "
-                        "'Here is your markdown'. Enclose all equations in single dollar signs like $e=mc^2$ "
-                        "You are analyzing a series of sequential PNG images. CRITICAL INSTRUCTION FOR IMAGES:. "
-                        "whenever you reference, describe, or analyze a specific image in your report, you MUST "
-                        "embed the figure inline using standard Markdown image syntax."
-                    ]
+                    contents = ["Extract all text, tables, and structural elements from this image and output them cleanly formatted in standard Markdown. Do not include conversational filler like 'Here is your markdown'. Enclose all equations in single dollar signs like $e=mc^2$ You are analyzing a series of sequential PNG images. CRITICAL INSTRUCTION FOR IMAGES:. whenever you reference, describe, or analyze a specific image in your report, you MUST embed the figure inline using standard Markdown image syntax." ]
                     
                     # Load file bytes directly into memory buffers with dynamic MIME handling
                     for uploaded_file in uploaded_files:
                         file_bytes = uploaded_file.read()
                         
-                        # Determine exact MIME type based on file suffix
+                        # VERIFICATION LOGIC: Determine exact MIME type based on file suffix
                         if uploaded_file.name.lower().endswith('.pdf'):
                             mime_type = 'application/pdf'
                         else:
@@ -142,21 +125,12 @@ else:
                             genai.types.Part.from_bytes(data=file_bytes, mime_type=mime_type)
                         )
 
-                    # 2. Generate Content via Gemini (Targeting the flagship stable production model)
+                    # 2. Generate Content via Gemini
                     response = client.models.generate_content(
                         model='gemini-3.6-flash',
                         contents=contents
                     )
-                    
-                    # Prepend an Administrative Metadata Header using the detailed user information
-                    metadata_header = f"""# Document Process Log
-**Processed By:** {user_name}  
-**Contact Email:** {user_email}  
-**Organization:** {user_org}  
----
-
-"""
-                    markdown_text = metadata_header + response.text
+                    markdown_text = response.text
 
                     # 3. Handle Pandoc Conversion using secure temporary cloud directories
                     with tempfile.TemporaryDirectory() as tmpdir:
@@ -192,11 +166,11 @@ else:
                     with col2:
                         st.download_button(
                             label="📄 Download Raw Markdown (.md)",
-                            data=markdown_text.encode("utf-8"),
+                            data=markdown_text,
                             file_name=f"{clean_name}.md",
                             mime="text/markdown",
                             use_container_width=True
                         )
 
                 except Exception as e:
-                    st.error(f"An unexpected error occurred during processing:\n{e}")                            
+                    st.error(f"An unexpected error occurred during processing:\n{e}")
