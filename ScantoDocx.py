@@ -6,10 +6,7 @@ from google import genai
 
 # Setup Page Configuration
 st.set_page_config(page_title="Document to Word Converter", page_icon="📝", layout="centered")
-st.markdown(
-    "<h1 style='font-size: 38px;'>This is a custom title size</h1>", 
-    unsafe_allow_html=True
-)
+
 
 # --- Sidebar Disclaimer & Signature Section ---
 with st.sidebar:
@@ -45,7 +42,7 @@ with st.sidebar:
     # Track if the disclaimer has been signed
     is_signed = len(user_signature) > 0
 
-st.title("📝 PNG/PDF→Markdown→Word Converter")
+st.title("<h1 style='font-size: 32px;'> 📝 PNG/PDF→Markdown→Word Converter")
 st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an editable Word Document. App developed by Dr. Vinu Unnikrishnan in collaboration with **Gemini AI**.")
 
 # Check signature status before displaying instructions or core application tools
