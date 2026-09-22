@@ -45,7 +45,7 @@ with st.sidebar:
 #st.title("<h1 style='font-size: 32px;'> 📝 PNG/PDF→Markdown→Word Converter")
 
 st.markdown("<h1 style='font-size: 32px;'>📝 PNG/PDF→Markdown→Word Converter</h1>", unsafe_allow_html=True)
-st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an editable Word Document. App developed by Dr. Vinu Unnikrishnan in collaboration with **Gemini AI**.")
+st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an **editable Word Document**. App developed by Dr. Vinu Unnikrishnan in collaboration with **Gemini AI**.")
 
 # Check signature status before displaying instructions or core application tools
 if not is_signed:
