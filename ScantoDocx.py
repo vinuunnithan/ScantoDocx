@@ -36,20 +36,8 @@ with st.sidebar:
         help="Entering your name acts as a digital signature acknowledging the risks listed above."
     ).strip()
 
-    user_email = st.text_input(
-        "Professional Email:", 
-        placeholder="name@organization.com",
-        help="Provide your business or organizational contact email."
-    ).strip()
-
-    user_org = st.text_input(
-        "Organization / Company Name:", 
-        placeholder="Company or Institution Inc.",
-        help="Provide the name of the entity you represent."
-    ).strip()
-
     # Track if all required detailed information has been provided
-    is_signed = len(user_name) > 0 and len(user_email) > 0 and len(user_org) > 0
+    is_signed = len(user_name) > 0 
 
 # --- Main Body Elements ---
 st.title("📝 PNG/PDF → Gemini Markdown → Word Converter")
