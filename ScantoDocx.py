@@ -49,7 +49,7 @@ st.write("Upload your PNG images or PDF files, convert them to clean Markdown vi
 
 # Check signature status before displaying instructions or core application tools
 if not is_signed:
-    st.warning("🔒 Please read and sign the **Legal & Technical Disclaimer** in the sidebar to unlock the application.")
+    st.warning("🔒 Please read and sign the **Disclaimer** in the sidebar to unlock the application.")
 else:
     st.success(f"✍️ Acknowledged by: **{user_signature}**")
 
