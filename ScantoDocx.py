@@ -6,6 +6,10 @@ from google import genai
 
 # Setup Page Configuration
 st.set_page_config(page_title="Document to Word Converter", page_icon="📝", layout="centered")
+st.markdown(
+    "<h1 style='font-size: 38px;'>This is a custom title size</h1>", 
+    unsafe_allow_html=True
+)
 
 # --- Sidebar Disclaimer & Signature Section ---
 with st.sidebar:
