@@ -41,8 +41,9 @@ with st.sidebar:
     # Track if the disclaimer has been signed
     is_signed = len(user_signature) > 0
 
-st.title("📝 PNG/PDF → Gemini Markdown → Word Converter")
+st.title("📝 PNG/PDF→Markdown→Word Converter")
 st.write("Upload your PNG images or PDF files, convert them to clean Markdown via Gemini AI, and download an editable Word Document.")
+st.write("App developed by Dr. Vinu Unnikrishnan in collaboration with **Gemini AI**.")
 
 # Check signature status before displaying instructions or core application tools
 if not is_signed:
@@ -55,7 +56,6 @@ else:
     st.markdown(
         """
         To use this tool, you need a Google Gemini API key. Getting one takes less than a minute and is completely **free** for experimental tiers:
-        
         1. **Go to Google AI Studio:** Click on **[Google AI Studio](https://google.com)** and log in using your Google or Workspace account.
         2. **Create Key:** Click the blue **"Get API key"** button in the upper-left corner of the dashboard.
         3. **Copy Key:** Choose **"Create API key"**, select or create a project, and copy your generated key string.
