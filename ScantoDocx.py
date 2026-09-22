@@ -58,7 +58,7 @@ else:
     st.markdown(
         """
         To use this tool, you need a **Google Gemini API key**. Getting one takes less than a minute and is completely **free** for experimental tiers:
-        1. **Go to Google AI Studio:** Click on **[Google AI Studio](https://google.com)** and log in using your Google or Workspace account.
+        1. **Go to Google AI Studio:** Click on **[Google AI Studio](https://aistudio.google.com)** and log in using your Google or Workspace account.
         2. **Create Key:** Click the blue **"Get API key"** button in the upper-left corner of the dashboard.
         3. **Copy Key:** Choose **"Create API key"**, select or create a project, and copy your generated key string.
         4. **Paste Below:** Paste that key string into the field below to unlock the file processor.
