@@ -46,8 +46,7 @@ st.title("📝 PNG/PDF → Gemini Markdown → Word Converter")
 st.markdown(
     """
     > 🤖 **Developer Acknowledgement**  
-    > This application was developed in collaboration with **Gemini AI** as an automated 
-    > utility solution for high-fidelity OCR and document ingestion.
+    > App developed in collaboration with **Gemini AI** by Vinu Unnikrishnan.
     """
 )
 st.write("") # Tiny spacer
