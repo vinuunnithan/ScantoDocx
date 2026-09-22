@@ -40,7 +40,7 @@ with st.sidebar:
     is_signed = len(user_name) > 0 
 
 # --- Main Body Elements ---
-st.title("📝 PNG/PDF → Gemini Markdown → Word Converter")
+st.title("📝 PNG/PDF → Markdown → Word Converter")
 
 # Developer Acknowledgement using clean markdown styling
 st.markdown(
