@@ -207,3 +207,9 @@ else:
                             label="📄 Download Raw Markdown (.md)",
                             data=markdown_text.encode("utf-8"),
                             file_name=f"{clean_name}.md",
+                            mime="text/markdown",
+                            use_container_width=True
+                        )
+
+                except Exception as e:
+                    st.error(f"An unexpected error occurred during processing:\n{e}")                            
